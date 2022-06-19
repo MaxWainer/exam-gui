@@ -10,16 +10,16 @@ fun createModule(builder: DependencyModule.() -> Unit) {
 
 interface DependencyModule {
 
-  val dependencies: MutableList<Injectable>
+  val dependencies: MutableList<Any>
 
-  fun add(injectable: Injectable)
+  fun add(injectable: Any)
 
 }
 
 private class DependencyModuleImpl : DependencyModule {
-  override val dependencies: MutableList<Injectable> = mutableListOf()
+  override val dependencies: MutableList<Any> = mutableListOf()
 
-  override fun add(injectable: Injectable) {
+  override fun add(injectable: Any) {
     dependencies.add(injectable)
   }
 

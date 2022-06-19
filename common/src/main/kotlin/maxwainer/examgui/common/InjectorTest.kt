@@ -1,6 +1,5 @@
 package maxwainer.examgui.common
 
-import maxwainer.examgui.common.inject.Injectable
 import maxwainer.examgui.common.inject.createModule
 import maxwainer.examgui.common.inject.delegate.define
 
@@ -26,7 +25,7 @@ class TestModule {
 
 }
 
-class TestInjectable : Injectable {
+class TestInjectable {
 
   fun call() {
     println("Kek")
