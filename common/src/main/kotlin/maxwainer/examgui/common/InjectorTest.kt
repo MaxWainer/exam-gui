@@ -1,67 +1,35 @@
 package maxwainer.examgui.common
 
-import maxwainer.examgui.common.inject.DependencyInjector
-import maxwainer.examgui.common.inject.Inject
-import maxwainer.examgui.common.inject.Provider
-import maxwainer.examgui.common.inject.createInjector
+import maxwainer.examgui.common.inject.Injectable
+import maxwainer.examgui.common.inject.createModule
+import maxwainer.examgui.common.inject.delegate.define
 
 fun main() {
 
-    val injector = createInjector {
-        registerInstance(MainModule())
-        registerInstance(AnotherModule())
-        registerProvider(String::class, ProviderTest())
-    }
+  createModule {
+    add(TestInjectable())
+  }
 
-    val module = injector.getInstance(MainModule::class)
-    val anotherModule = injector.getInstance(AnotherModule::class)
-    //val strProvider = injector.getInstance(String::class)
+  val test = TestModule()
 
-    //println(strProvider)
-
-    module.call()
-    anotherModule.method()
-    anotherModule.checkModule()
-    //anotherModule.checkProvider()
+  test.doSmth()
 }
 
-class ProviderTest : Provider<String> {
+class TestModule {
 
-    @Inject
-    lateinit var injector: DependencyInjector
+  private val test by define<TestInjectable>()
 
-    override fun get() = "Clazz: ${injector.javaClass}"
-}
-
-class MainModule {
-
-    @Inject
-    lateinit var anotherModule: AnotherModule
-
-    fun call() {
-        anotherModule.method()
-    }
+  fun doSmth() {
+    test.call()
+    println("Yup")
+  }
 
 }
 
-class AnotherModule {
+class TestInjectable : Injectable {
 
-    @Inject
-    lateinit var firstModule: MainModule
-
-    @Inject
-    lateinit var dependencyInjector: DependencyInjector
-
-    fun method() {
-        println("Test")
-    }
-
-    fun checkModule() {
-        println("Main module $firstModule")
-    }
-
-    fun checkProvider() {
-        println(dependencyInjector.getInstance(String::class))
-    }
+  fun call() {
+    println("Kek")
+  }
 
 }
