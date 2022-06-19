@@ -27,11 +27,11 @@ interface DependencyInjector {
 
 private class DependencyConfiguratorImpl : DependencyConfigurator {
     override fun registerInstance(instance: Any) {
-        registeredDependencies[instance.javaClass] = { instance }
+        registeredDependencies[instance::class.java] = { instance }
     }
 
     override fun <T : Any> registerProvider(clazz: Class<T>, provider: Provider<T>) {
-        registeredDependencies[clazz] = { provider.invoke(it) }
+        registeredDependencies[clazz] = { provider }
     }
 
     override val registeredDependencies = mutableMapOf<Class<*>, DependencyFactory>()
@@ -41,13 +41,13 @@ private class DependencyConfiguratorImpl : DependencyConfigurator {
 private class DependencyInjectorImpl(private val configurator: DependencyConfigurator) :
     DependencyInjector {
 
-    private val visitor = ConfiguredFieldVisitor(this, configurator)
+    private val visitor = ConfiguredFieldVisitor(configurator)
     private val lookup = MethodHandles.lookup()
 
-    private val injectedInstances = mutableListOf<Any>()
+    private val injectedInstances = mutableMapOf<Class<*>, Any>()
 
     override fun injectDependencies(clazz: Class<*>, instance: Any): Any {
-        if (injectedInstances.contains(instance))
+        if (findInstance(clazz) != null)
             return instance
 
         for (declaredField in clazz.declaredFields) {
@@ -60,30 +60,49 @@ private class DependencyInjectorImpl(private val configurator: DependencyConfigu
                 )
         }
 
-        injectedInstances.add(instance)
+        injectedInstances[clazz] = instance
 
         return instance
     }
 
     override fun injectDependencies(clazz: Class<*>): Any {
-        injectedInstances
-            .firstOrNull { it::class.java == clazz }?.let { return it }
+        findInstance(clazz)?.let { return it }
 
         val instance = if (!clazz.isObject)
             clazz.createInstance
         else
             clazz.objectInstance
-                ?: throw UnsupportedOperationException("Unable to create or get instance of class $clazz")
+                ?: throw UnsupportedOperationException(
+                    "Unable to create or get instance of class $clazz")
 
         return injectDependencies(clazz, instance)
     }
 
-    override fun <T : Any> getInstance(clazz: Class<T>) = injectedInstances
-        .first { it::class.java == clazz } as T
+    private fun findInstance(clazz: Class<*>) = injectedInstances
+        .entries
+        .firstOrNull { (key, _) -> key::class.java.isAssignableFrom(clazz) }
+        ?.value
+
+    override fun <T : Any> getInstance(clazz: Class<T>): T {
+        val result = injectedInstances
+            .entries
+            .first { (key, _) -> clazz.isAssignableFrom(key::class.java) }
+            .value
+
+        val toHandle = when (result) {
+            is Provider<*> -> result.get()
+            else -> result
+        }
+
+        return toHandle as T
+    }
 
     fun selfInject() = apply {
+        configurator.registerInstance(this@DependencyInjectorImpl)
+        injectDependencies(DependencyInjector::class.java, this@DependencyInjectorImpl)
+
         configurator.registeredDependencies.forEach { (clazz, factory) ->
-            injectDependencies(clazz, factory(this))
+            injectDependencies(clazz, factory())
         }
     }
 

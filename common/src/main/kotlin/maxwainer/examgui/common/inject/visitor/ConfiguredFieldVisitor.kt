@@ -7,13 +7,12 @@ import java.lang.invoke.MethodHandle
 import java.lang.reflect.Field
 
 class ConfiguredFieldVisitor(
-    private val injector: DependencyInjector,
     private val configurator: DependencyConfigurator) : FieldVisitor {
 
     override fun visitField(clazz: Class<*>, instance: Any, field: Field, handle: MethodHandle) {
         val factory = configurator.registeredDependencies[field.type] ?: return
 
-        handle.bindTo(instance).invoke(factory(injector))
+        handle.bindTo(instance).invoke(factory())
     }
 
     override fun isVisitable(field: Field) = field.getAnnotation(Inject::class.java) != null

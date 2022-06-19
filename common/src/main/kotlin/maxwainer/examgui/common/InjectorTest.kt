@@ -10,21 +10,27 @@ fun main() {
     val injector = createInjector {
         registerInstance(MainModule())
         registerInstance(AnotherModule())
-        registerProvider(String::class.java, ProviderTest())
+        registerProvider(String::class, ProviderTest())
     }
 
     val module = injector.getInstance(MainModule::class)
     val anotherModule = injector.getInstance(AnotherModule::class)
-    val string = injector.getInstance(String::class)
+    //val strProvider = injector.getInstance(String::class)
+
+    //println(strProvider)
 
     module.call()
     anotherModule.method()
     anotherModule.checkModule()
-    println(string)
+    //anotherModule.checkProvider()
 }
 
 class ProviderTest : Provider<String> {
-    override fun invoke(injector: DependencyInjector) = "Clazz: ${injector.javaClass}"
+
+    @Inject
+    lateinit var injector: DependencyInjector
+
+    override fun get() = "Clazz: ${injector.javaClass}"
 }
 
 class MainModule {
@@ -43,12 +49,19 @@ class AnotherModule {
     @Inject
     lateinit var firstModule: MainModule
 
+    @Inject
+    lateinit var dependencyInjector: DependencyInjector
+
     fun method() {
         println("Test")
     }
 
     fun checkModule() {
         println("Main module $firstModule")
+    }
+
+    fun checkProvider() {
+        println(dependencyInjector.getInstance(String::class))
     }
 
 }
