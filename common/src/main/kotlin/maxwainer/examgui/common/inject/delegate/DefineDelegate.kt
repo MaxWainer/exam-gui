@@ -1,19 +1,15 @@
 package maxwainer.examgui.common.inject.delegate
 
-import maxwainer.examgui.common.inject.Injectable
 import maxwainer.examgui.common.inject.ModuleManager
+import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-fun <T : Injectable> define(): InjectedDependency<T> = InjectedDependencyImpl()
+typealias AnyReadOnlyProperty<T> = ReadOnlyProperty<Any, T>
 
-interface InjectedDependency<T : Any> {
+fun <T : Any> define(): AnyReadOnlyProperty<T> = DefinableProperty()
 
-  operator fun getValue(thisRef: Any?, property: KProperty<*>): T
-
-}
-
-private class InjectedDependencyImpl<T : Any> : InjectedDependency<T> {
+private class DefinableProperty<T : Any> : AnyReadOnlyProperty<T> {
   @Suppress("UNCHECKED_CAST")
-  override fun getValue(thisRef: Any?, property: KProperty<*>) =
+  override fun getValue(thisRef: Any, property: KProperty<*>) =
     ModuleManager.findByType(property.returnType) as T
 }

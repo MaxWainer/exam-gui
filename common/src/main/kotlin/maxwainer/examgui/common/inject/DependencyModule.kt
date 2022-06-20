@@ -22,5 +22,4 @@ private class DependencyModuleImpl : DependencyModule {
   override fun add(injectable: Any) {
     dependencies.add(injectable)
   }
-
 }
