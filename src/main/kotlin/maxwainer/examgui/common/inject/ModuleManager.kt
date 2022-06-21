@@ -2,6 +2,7 @@ package maxwainer.examgui.common.inject
 
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
+import kotlin.reflect.full.isSubtypeOf
 
 internal object ModuleManager {
 
@@ -13,6 +14,6 @@ internal object ModuleManager {
 
   fun findByType(type: KType) = registeredModules
     .flatMap { it.dependencies }
-    .first { it.javaClass.kotlin.createType() == type }
+    .first { it::class.createType().isSubtypeOf(type) }
 
 }

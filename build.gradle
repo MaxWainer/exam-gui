@@ -4,6 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.20'
     id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'org.beryx.jlink' version '2.24.1'
+    //id 'org.hibernate.orm' version '6.1.0.Final'
 }
 
 group 'maxwainer'
@@ -36,23 +37,21 @@ javafx {
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'org.jetbrains.kotlin.jvm'
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+
+    // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
+    implementation 'org.hibernate.orm:hibernate-core:6.1.0.Final'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.0'
 }
 
-allprojects {
-    dependencies {
-        testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+repositories {
+    mavenCentral()
+}
 
-        // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
-        implementation 'org.hibernate.orm:hibernate-core:6.1.0.Final'
-    }
-
-    repositories {
-        mavenCentral()
-    }
+dependencies {
+    //implementation project(':common')
 }
 
 test {
@@ -69,4 +68,10 @@ jlink {
 
 jlinkZip {
     group = 'distribution'
+}
+
+compileKotlin {
+    kotlinOptions {
+        languageVersion = "1.7"
+    }
 }

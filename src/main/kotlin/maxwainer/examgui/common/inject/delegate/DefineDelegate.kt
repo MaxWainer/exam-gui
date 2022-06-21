@@ -3,6 +3,7 @@ package maxwainer.examgui.common.inject.delegate
 import maxwainer.examgui.common.inject.ModuleManager
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
+import kotlin.reflect.javaType
 
 typealias AnyReadOnlyProperty<T> = ReadOnlyProperty<Any, T>
 
