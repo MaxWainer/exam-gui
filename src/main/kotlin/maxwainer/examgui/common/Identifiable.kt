@@ -1,6 +1,6 @@
 package maxwainer.examgui.common
 
-interface Identifiable<I : Any> {
+interface Identifiable<I> {
 
   val identifier: I
 

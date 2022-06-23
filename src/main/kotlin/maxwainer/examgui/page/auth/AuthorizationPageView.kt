@@ -9,13 +9,16 @@ import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.image.WritableImage
 import maxwainer.examgui.common.inject.delegate.define
+import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.extension.forEach
 import maxwainer.examgui.extension.isNotNullOrBlank
 import maxwainer.examgui.extension.javafx.get
 import maxwainer.examgui.extension.javafx.textProperty
 import maxwainer.examgui.module.Captcha
 import maxwainer.examgui.module.CaptchaModule
+import maxwainer.examgui.module.entity.EmployerService
 import maxwainer.examgui.page.AbstractPage
+import maxwainer.examgui.page.base.MainPageView
 import java.awt.image.BufferedImage
 import java.net.URL
 import java.util.*
@@ -25,6 +28,8 @@ class AuthorizationPageView : AbstractPage(), Initializable {
 
   // get captcha module
   private val captchaModule by define<CaptchaModule>()
+
+  private val employerService by define<EmployerService>()
 
   @FXML
   private lateinit var usernameField: TextField
@@ -48,12 +53,14 @@ class AuthorizationPageView : AbstractPage(), Initializable {
     errorLabel.text = "" // clear text
 
     callChecks {
-
-      openPage("main-view")
+      // open page and set employer via preprocessor
+      openPage<MainPageView>("main-page") { page ->
+        page.employer = it
+      }
     }
   }
 
-  private fun callChecks(success: () -> Unit) {
+  private fun callChecks(success: (Employer) -> Unit) {
     // get entered values
     val username = usernameField.textProperty.get
     val password = passwordField.textProperty.get
@@ -77,8 +84,19 @@ class AuthorizationPageView : AbstractPage(), Initializable {
       && password.isNotNullOrBlank() // check is password not blank
       && captcha.isNotNullOrBlank() // check is captcha not blank
     ) {
+      if (captcha == currentCaptcha.requiredValue) {
+        val employer = employerService.byColumn("username", username!!)
 
-      if (captcha == currentCaptcha.requiredValue) success() else {
+        // check is employer exists
+        if (employer == null) {
+          errorLabel.text += "Unknown user!"
+        } else {
+          // check is password equals
+          if (employer.password == password) {
+            success(employer)
+          } else errorLabel.text += "Invalid password!" // else we show error
+        }
+      } else {
         // set label
         errorLabel.text += "You entered wrong captcha!"
       }

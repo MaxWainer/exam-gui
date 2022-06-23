@@ -2,8 +2,7 @@ package maxwainer.examgui.module.entity
 
 import maxwainer.examgui.common.Identifiable
 
-interface CRUDBase<K : Any, V> where V : Any,
-                                     V : Identifiable<K> {
+interface CRUDBase<K : Any, V> {
 
   // create
   fun create(value: V)

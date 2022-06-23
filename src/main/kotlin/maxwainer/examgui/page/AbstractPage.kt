@@ -2,8 +2,8 @@ package maxwainer.examgui.page
 
 abstract class AbstractPage {
 
-  protected fun openPage(page: String) {
-
+  protected fun <T> openPage(page: String, preprocessor: (T) -> Unit = {}): T {
+    TODO()
   }
 
 }
