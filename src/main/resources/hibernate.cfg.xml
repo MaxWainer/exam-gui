@@ -1,8 +1,16 @@
-<hibernate-configuration xmlns="http://www.hibernate.org/xsd/hibernate-configuration">
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration
+  PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
   <session-factory>
     <property name="show_sql">true</property>
     <property name="connection.url">jdbc:mysql://localhost:3306/production</property>
     <property name="connection.username">root</property>
-    <mapping package="maxwainer.examgui.entities"/>
+    <mapping class="maxwainer.examgui.entities.Center"/>
+    <mapping class="maxwainer.examgui.entities.Employer"/>
+    <mapping class="maxwainer.examgui.entities.Pavilion"/>
+    <mapping class="maxwainer.examgui.entities.Rent"/>
+    <mapping class="maxwainer.examgui.entities.Renter"/>
   </session-factory>
 </hibernate-configuration>

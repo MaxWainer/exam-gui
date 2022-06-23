@@ -19,12 +19,14 @@ private class DbSessionProviderImpl(hibernateConfig: URL) : DbSessionProvider {
     Configuration().configure(hibernateConfig)
   }
 
-  private val serviceRegistry = StandardServiceRegistryBuilder()
-    .applySettings(config.properties) // add settings
-    .build()
+//  private val serviceRegistry = StandardServiceRegistryBuilder()
+//    .applySettings(config.properties) // add settings
+//    .build()
 
   // create session factory
-  private val sessionFactory = config.buildSessionFactory(serviceRegistry)
+  private val sessionFactory = config.buildSessionFactory().apply {
+    this.properties.putAll(config.properties.mapKeys { it.key.toString() })
+  }
 
   override fun <T> openSession(commit: Boolean, consumer: (Session) -> T): T {
     sessionFactory.openSession().use {

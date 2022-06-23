@@ -4,7 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.20'
     id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'org.beryx.jlink' version '2.24.1'
-    //id 'org.hibernate.orm' version '6.1.0.Final'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'maxwainer'
@@ -23,7 +23,7 @@ compileJava {
 
 application {
     mainModule = 'maxwainer.examgui'
-    mainClass = 'maxwainer.examgui.HelloApplication'
+    mainClass = 'maxwainer.examgui.JApp'
 }
 
 [compileKotlin, compileTestKotlin].forEach {
@@ -44,10 +44,18 @@ dependencies {
     // https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
     implementation 'org.hibernate.orm:hibernate-core:6.1.0.Final'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.7.0'
+    //implementation 'org.hibernate:hibernate-core-jakarta:5.6.9.Final'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.0'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+    implementation 'com.fasterxml:classmate:1.5.1'
+    // https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy-dep
+    implementation 'net.bytebuddy:byte-buddy-dep:1.12.11'
+    implementation 'mysql:mysql-connector-java:8.0.29'
 }
 
 repositories {
     mavenCentral()
+    maven { url 'https://repository.jboss.org' }
 }
 
 dependencies {
@@ -72,6 +80,6 @@ jlinkZip {
 
 compileKotlin {
     kotlinOptions {
-        languageVersion = "1.7"
+        languageVersion = '1.7'
     }
 }

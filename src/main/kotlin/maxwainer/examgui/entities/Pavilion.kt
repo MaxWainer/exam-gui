@@ -1,14 +1,16 @@
 package maxwainer.examgui.entities
 
 import jakarta.persistence.*
+import maxwainer.examgui.common.Identifiable
 
 @Entity
 @Table(name = "pavilions")
-open class Pavilion {
+open class Pavilion : Identifiable<Int?> {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "pavilion_id", nullable = false)
-  open var id: Long? = null
+  override var identifier: Int? = null
 
   @JoinColumn(name = "center_id")
   @OneToOne(targetEntity = Center::class)
@@ -30,6 +32,6 @@ open class Pavilion {
   open var pricePerSquare: Double? = null
 
   @Column(name = "value_factor", nullable = false)
-  open var valueFactor: Double? = null
+  open var valueFactor: Float? = null
 
 }

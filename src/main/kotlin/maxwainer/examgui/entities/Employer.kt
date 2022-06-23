@@ -11,7 +11,7 @@ open class Employer : Identifiable<Int?> {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "employer_id", nullable = false)
-  open override var identifier: Int? = null
+  override var identifier: Int? = null
 
   @Column(name = "name", nullable = false)
   open var name: String? = null
@@ -40,4 +40,8 @@ open class Employer : Identifiable<Int?> {
   @Lob
   @Column(name = "photo", nullable = false)
   open var photo: Blob? = null
+  override fun toString() =
+    "Employer(identifier=$identifier, name=$name, secondName=$secondName, patronymic=$patronymic, password=$password, role=$role, phoneNumber=$phoneNumber, sex=$sex, login=$login, photo=$photo)"
+
+
 }

@@ -1,8 +1,6 @@
 package maxwainer.examgui.page.auth
 
 import javafx.fxml.FXML
-import javafx.fxml.Initializable
-import javafx.scene.control.Label
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
 import javafx.scene.image.Image
@@ -10,8 +8,10 @@ import javafx.scene.image.ImageView
 import javafx.scene.image.WritableImage
 import maxwainer.examgui.common.inject.delegate.define
 import maxwainer.examgui.entities.Employer
+import maxwainer.examgui.extension.compareTo
 import maxwainer.examgui.extension.forEach
 import maxwainer.examgui.extension.isNotNullOrBlank
+import maxwainer.examgui.extension.javafx.authErrorAlert
 import maxwainer.examgui.extension.javafx.get
 import maxwainer.examgui.extension.javafx.textProperty
 import maxwainer.examgui.module.Captcha
@@ -20,11 +20,11 @@ import maxwainer.examgui.module.entity.EmployerService
 import maxwainer.examgui.page.AbstractPage
 import maxwainer.examgui.page.base.MainPageView
 import java.awt.image.BufferedImage
-import java.net.URL
-import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.properties.Delegates
 
-class AuthorizationPageView : AbstractPage(), Initializable {
+class AuthorizationPageView : AbstractPage() {
 
   // get captcha module
   private val captchaModule by define<CaptchaModule>()
@@ -43,15 +43,13 @@ class AuthorizationPageView : AbstractPage(), Initializable {
   @FXML
   private lateinit var captchaImage: ImageView
 
-  @FXML
-  private lateinit var errorLabel: Label
+  private var invalidCount = AtomicInteger(0)
+  private var invalidState = AtomicBoolean(false)
 
   private var currentCaptcha by Delegates.notNull<Captcha>()
 
   @FXML
   private fun onLoginClick() {
-    errorLabel.text = "" // clear text
-
     callChecks {
       // open page and set employer via preprocessor
       openPage<MainPageView>("main-page") { page ->
@@ -68,51 +66,78 @@ class AuthorizationPageView : AbstractPage(), Initializable {
 
     // check is username not present
     if (username.isNullOrBlank()) {
-      errorLabel.text += "Missing username\n"
+      authErrorAlert("Username is required")
+      return // stop execution
     }
 
     // check is password not present
     if (password.isNullOrBlank()) {
-      errorLabel.text += "Missing password\n"
+      authErrorAlert("Missing password")
+      return // stop execution
     }
 
-    if (captcha.isNullOrBlank()) {
-      errorLabel.text += "Missing captcha!"
+    if (invalidState.get()) {
+      if (captcha.isNullOrBlank()) {
+        authErrorAlert("Captcha is required")
+        return // stop execution
+      }
+
+      if (captcha != currentCaptcha.requiredValue) {
+        authErrorAlert("Invalid captcha")
+        return // stop execution
+      }
+
+      captchaImage.isVisible = false
+      captchaField.isVisible = false
     }
 
     if (username.isNotNullOrBlank() // check is username not blank
-      && password.isNotNullOrBlank() // check is password not blank
-      && captcha.isNotNullOrBlank() // check is captcha not blank
+      && password.isNotNullOrBlank() // check is captcha not blank
     ) {
-      if (captcha == currentCaptcha.requiredValue) {
-        val employer = employerService.byColumn("username", username!!)
+      val employer = employerService.byColumn("login", username)
 
-        // check is employer exists
-        if (employer == null) {
-          errorLabel.text += "Unknown user!"
-        } else {
-          // check is password equals
-          if (employer.password == password) {
-            success(employer)
-          } else errorLabel.text += "Invalid password!" // else we show error
-        }
-      } else {
-        // set label
-        errorLabel.text += "You entered wrong captcha!"
-      }
+      // check is employer exists
+      if (employer == null)
+        authErrorAlert("Employer not found")
+      else
+        if (employer.password == password)
+          success(employer)
+        else
+          if (handleInvalid()) authErrorAlert("Wrong password!")
     }
 
-    // always regenerate captcha
-    initialize(null, null)
+    clearFields()
   }
 
-  override fun initialize(location: URL?, resources: ResourceBundle?) {
+  private fun handleInvalid(): Boolean {
+    invalidCount.incrementAndGet()
+    if (invalidCount >= 3) {
+      authErrorAlert("You have entered wrong password too many times!")
+      initializedCaptcha()
+
+      invalidState.set(true)
+      invalidCount.set(0)
+      return false
+    }
+
+    return true
+  }
+
+  private fun initializedCaptcha() {
+    captchaField.isVisible = true
+    captchaImage.isVisible = true
 
     currentCaptcha = captchaModule.createCaptcha()
 
     val image = currentCaptcha.image
 
     captchaImage.image = image.toImageView()
+  }
+
+  private fun clearFields() {
+    usernameField.text = ""
+    passwordField.text = ""
+    captchaField.text = ""
   }
 
 }

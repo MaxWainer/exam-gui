@@ -1,15 +1,16 @@
 package maxwainer.examgui.entities
 
 import jakarta.persistence.*
+import maxwainer.examgui.common.Identifiable
 import java.sql.Blob
 
 @Entity
 @Table(name = "centers")
-open class Center {
+open class Center : Identifiable<Int?> {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "center_id", nullable = false)
-  open var id: Long? = null
+  override var identifier: Int? = null
 
   @Column(name = "name", nullable = false)
   open var name: String? = null

@@ -64,12 +64,7 @@ private class CaptchaModuleImpl : CaptchaModule {
 
     val value = arr.randomString(6)
 
-//    println(value)
-//
     graphic.font = DEFAULT_FONT
-//    graphic.background = randomColor
-//    graphic.color = randomColor
-//    graphic.fillRect(0, 0, BASIC_WIDTH, BASIC_HEIGHT)
 
     graphic.drawString(value, RANDOM.nextInt(25, 55), RANDOM.nextInt(25, 55));
 

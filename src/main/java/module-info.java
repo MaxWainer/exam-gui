@@ -6,6 +6,11 @@ open module maxwainer.examgui {
   requires jakarta.persistence;
   requires kotlin.reflect;
   requires java.desktop;
+  requires java.naming;
+  requires java.xml;
+  requires jakarta.xml.bind;
+  requires com.fasterxml.classmate;
+  requires org.objectweb.asm;
 
   //opens maxwainer.examgui to javafx.fxml, javafx.graphics;
 
