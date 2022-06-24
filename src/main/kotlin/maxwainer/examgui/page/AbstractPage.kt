@@ -1,25 +1,34 @@
 package maxwainer.examgui.page
 
 import javafx.fxml.FXMLLoader
+import javafx.fxml.Initializable
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
 import maxwainer.examgui.ExamApplication
 import maxwainer.examgui.common.inject.delegate.define
+import java.net.URL
+import java.util.*
 
-abstract class AbstractPage {
+abstract class AbstractPage : Initializable {
 
   private val parentStage by define<Stage>()
 
-  protected fun <T> openPage(page: String, preprocessor: (T) -> Unit = {}) {
+  protected fun <T> openPage(page: String, factory: () -> T, preprocessor: (T) -> Unit = {}) {
     val loader = FXMLLoader(
-      ExamApplication::class.java.getResource("maxwainer/examgui/${page}.fxml"))
+      ExamApplication::class.java.getResource("/maxwainer/examgui/${page}.fxml")
+    )
 
-    val page = loader.load<Parent>()
+    val controller = factory()
+    loader.setController(controller)
 
-    preprocessor(page as T)
+    preprocessor(controller)
 
-    parentStage.scene = Scene(page)
+    val parent = loader.load<Parent>()
+
+    parentStage.scene = Scene(parent)
   }
+
+  override fun initialize(location: URL?, resources: ResourceBundle?) {}
 
 }

@@ -9,3 +9,8 @@ fun BufferedImage.forEach(consumer: (Int, Int) -> Unit) {
     }
   }
 }
+
+val BufferedImage.asByteArray: ByteArray
+  get() = ByteArray(width * height) {
+    getRGB(it / width, it % width).toByte()
+  }

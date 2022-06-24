@@ -3,7 +3,6 @@ package maxwainer.examgui.page.auth
 import javafx.fxml.FXML
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
-import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.image.WritableImage
 import maxwainer.examgui.common.inject.delegate.define
@@ -51,10 +50,8 @@ class AuthorizationPageView : AbstractPage() {
   @FXML
   private fun onLoginClick() {
     callChecks {
-      // open page and set employer via preprocessor
-      openPage<MainPageView>("main-page") { page ->
-        page.employer = it
-      }
+      // open page
+      openPage("main-page", { MainPageView(it) })
     }
   }
 
@@ -131,7 +128,7 @@ class AuthorizationPageView : AbstractPage() {
 
     val image = currentCaptcha.image
 
-    captchaImage.image = image.toImageView()
+    captchaImage.image = image.toImageView().image
   }
 
   private fun clearFields() {
@@ -142,7 +139,7 @@ class AuthorizationPageView : AbstractPage() {
 
 }
 
-private fun BufferedImage.toImageView(): Image {
+fun BufferedImage.toImageView(): ImageView {
   val writable = WritableImage(width, height)
 
   val pixelWriter = writable.pixelWriter
@@ -151,5 +148,5 @@ private fun BufferedImage.toImageView(): Image {
     pixelWriter.setArgb(x, y, getRGB(x, y))
   }
 
-  return ImageView(writable).image
+  return ImageView(writable)
 }

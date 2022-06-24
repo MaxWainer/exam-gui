@@ -2,7 +2,6 @@ package maxwainer.examgui.entities
 
 import jakarta.persistence.*
 import maxwainer.examgui.common.Identifiable
-import java.sql.Blob
 
 @Entity
 @Table(name = "centers")
@@ -28,13 +27,13 @@ open class Center : Identifiable<Int?> {
   open var price: Double? = null
 
   @Column(name = "value_factor", nullable = false)
-  open var valueFactor: String? = null
+  open var valueFactor: Float? = null
 
   @Column(name = "floor_count", nullable = false)
   open var floorCount: Int? = null
 
   @Lob
   @Column(name = "picture", nullable = false)
-  open var picture: Blob? = null
+  open var image: ByteArray? = null
 
 }
