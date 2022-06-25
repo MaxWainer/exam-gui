@@ -2,8 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,18 +26,6 @@
   </left>
   <right>
     <AnchorPane prefHeight="900.0" prefWidth="1244.0" BorderPane.alignment="CENTER">
-      <TableView fx:id="centerTableView" layoutX="30.0" layoutY="26.0" prefHeight="760.0" prefWidth="1187.0">
-        <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="228.0" text="Name" />
-          <TableColumn fx:id="statusColumn" prefWidth="92.0" text="Status" />
-          <TableColumn fx:id="pavilionCountColumn" minWidth="4.0" prefWidth="135.0" text="Pavilion count" />
-          <TableColumn fx:id="cityColumn" prefWidth="129.0" resizable="false" text="City" />
-          <TableColumn fx:id="priceColumn" prefWidth="129.0" resizable="false" text="Price" />
-          <TableColumn fx:id="valueFactorColumn" prefWidth="129.0" resizable="false" text="Value factor" />
-          <TableColumn fx:id="floorCountColumn" prefWidth="129.0" resizable="false" text="Floor count" />
-          <TableColumn fx:id="imageColumn" prefWidth="215.0" resizable="false" text="Image" />
-        </columns>
-      </TableView>
       <ComboBox layoutX="30.0" layoutY="833.0" prefWidth="150.0" promptText="Select sort options..." />
       <Text layoutX="30.0" layoutY="818.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorting options">
         <font>
@@ -46,9 +33,10 @@
         </font>
       </Text>
       <ComboBox layoutX="195.0" layoutY="833.0" prefWidth="150.0" promptText="Order by..." />
-      <Button layoutX="959.0" layoutY="823.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="115.0" text="Edit" />
-      <Button layoutX="1094.0" layoutY="823.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="115.0" text="Remove" />
-      <Button layoutX="559.0" layoutY="823.0" mnemonicParsing="false" onMouseClicked="#onAddClick" prefHeight="45.0" prefWidth="115.0" text="Add new center" />
+      <Button layoutX="862.0" layoutY="818.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="115.0" text="Edit" />
+      <Button layoutX="997.0" layoutY="818.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="115.0" text="Remove" />
+      <Button layoutX="559.0" layoutY="823.0" mnemonicParsing="false" onMouseClicked="#onCreateClick" prefHeight="45.0" prefWidth="115.0" text="Add new center" />
+      <ListView fx:id="objectsView" layoutX="35.0" layoutY="37.0" prefHeight="714.0" prefWidth="1131.0" />
     </AnchorPane>
   </right>
 </BorderPane>

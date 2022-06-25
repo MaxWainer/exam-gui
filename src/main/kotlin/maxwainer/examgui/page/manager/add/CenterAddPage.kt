@@ -67,9 +67,10 @@ class CenterAddPage(override val employer: Employer) : AbstractPage(), EmployerD
     val pavilionCount = pavilionCountField.text.toIntOrNull()
     val image = image.asByteArray
 
-    if (name.isEmpty() ||
-      status == null ||
-      city.isEmpty() ||
+    // check is some field is empty or null
+    if (name.isNullOrEmpty() ||
+      status.isNullOrEmpty() ||
+      city.isNullOrEmpty() ||
       floorCount == null ||
       price == null ||
       valueFactor == null ||
@@ -95,6 +96,7 @@ class CenterAddPage(override val employer: Employer) : AbstractPage(), EmployerD
   @FXML
   private fun onSelectPictureClick() {
     val file = fileChooser.showOpenDialog(null) ?: return
+
 
     // check is file is png or jpg
     if (file.name.endsWith(".png") || file.name.endsWith(".jpg")) {

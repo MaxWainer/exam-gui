@@ -34,3 +34,15 @@ object PictureCellValueFactory : MethodVisitingCellValueFactory<Center, ImageVie
     bufferedImage.toImageView()
   }
 })
+
+val ByteArray.toImageView: ImageView get() {
+  val stream = ByteArrayInputStream(this)
+
+  return if (this.size >= 0) {
+    ImageView("/maxwainer/examgui/images/no_image.jpg")
+  } else {
+    val bufferedImage = ImageIO.read(stream)
+
+    bufferedImage.toImageView()
+  }
+}

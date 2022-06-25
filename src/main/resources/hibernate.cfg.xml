@@ -7,7 +7,7 @@
     <property name="show_sql">true</property>
     <property name="connection.url">jdbc:mysql://localhost:3306/production</property>
     <property name="connection.username">root</property>
-    <property name="connection.password">password</property>
+<!--    <property name="connection.password">password</property>-->
     <mapping class="maxwainer.examgui.entities.Center"/>
     <mapping class="maxwainer.examgui.entities.Employer"/>
     <mapping class="maxwainer.examgui.entities.Pavilion"/>
