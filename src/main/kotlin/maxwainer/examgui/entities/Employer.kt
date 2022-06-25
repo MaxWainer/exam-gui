@@ -2,6 +2,7 @@ package maxwainer.examgui.entities
 
 import jakarta.persistence.*
 import maxwainer.examgui.common.Identifiable
+import maxwainer.examgui.common.sort.ScopedComparable
 import java.sql.Blob
 
 @Table(name = "employers")
@@ -42,6 +43,4 @@ open class Employer : Identifiable<Int?> {
   open var photo: Blob? = null
   override fun toString() =
     "Employer(identifier=$identifier, name=$name, secondName=$secondName, patronymic=$patronymic, password=$password, role=$role, phoneNumber=$phoneNumber, sex=$sex, login=$login, photo=$photo)"
-
-
 }

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
+import maxwainer.examgui.BASE_STYLE
 import maxwainer.examgui.ExamApplication
 import maxwainer.examgui.common.inject.delegate.define
 import java.net.URL
@@ -26,7 +27,7 @@ abstract class AbstractPage : Initializable {
 
     val parent = loader.load<Parent>()
 
-    parentStage.scene = Scene(parent)
+    parentStage.scene = Scene(parent).apply { stylesheets.add(BASE_STYLE) }
   }
 
   override fun initialize(location: URL?, resources: ResourceBundle?) {}

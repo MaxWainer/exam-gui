@@ -10,6 +10,11 @@ import maxwainer.examgui.module.CaptchaModule
 import maxwainer.examgui.module.entity.*
 import maxwainer.examgui.module.session.DbSessionProvider
 
+val BASE_STYLE = ExamApplication::class
+  .java
+  .getResource("style/style.css")!!
+  .toExternalForm()
+
 class ExamApplication : Application() {
 
   override fun start(stage: Stage) {
@@ -29,12 +34,7 @@ class ExamApplication : Application() {
 
     stage.fixTo(600.0, 400.0)
 
-    scene.stylesheets.add(
-      ExamApplication::class
-        .java
-        .getResource("style/auth-style.css")!!
-        .toExternalForm()
-    )
+    scene.stylesheets.add(BASE_STYLE)
 
     stage.title = "Hello!"
     stage.scene = scene

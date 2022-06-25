@@ -64,7 +64,7 @@ class MainPageView(override val employer: Employer) : AbstractPage(), EmployerDe
 
     centersManager.setOnAction {
       openPage("centers-page", { CenterManagerPage(employer) }) {
-        primaryStage.fixTo(1920.0, 1080.0)
+        primaryStage.fixTo(1400.0, 700.0)
       }
     }
 
@@ -77,7 +77,7 @@ class MainPageView(override val employer: Employer) : AbstractPage(), EmployerDe
     }
 
     pavilionsManager.setOnAction {
-      openPage("pavilions-page", { PavilionsManagerPage(employer) })
+      openPage("pavilions-page", { PavilionsManagerPage() })
     }
   }
 }
