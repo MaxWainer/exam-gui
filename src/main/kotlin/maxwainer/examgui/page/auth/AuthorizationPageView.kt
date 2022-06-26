@@ -86,6 +86,7 @@ class AuthorizationPageView : AbstractPage() {
 
       captchaImage.isVisible = false
       captchaField.isVisible = false
+      invalidState.set(false)
     }
 
     if (username.isNotNullOrBlank() // check is username not blank
