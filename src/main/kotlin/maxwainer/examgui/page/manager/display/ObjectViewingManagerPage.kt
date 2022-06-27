@@ -16,9 +16,9 @@ import maxwainer.examgui.page.EmployerDependPage
 import java.net.URL
 import java.util.*
 
-abstract class ObjectViewingManagerPage<T, S : SortingOption>(override val employer: Employer) :
-  AbstractPage(),
-  EmployerDependPage {
+abstract class ObjectViewingManagerPage<T, S : SortingOption>
+  (override val employer: Employer) :
+  AbstractPage(), EmployerDependPage {
 
   @FXML
   protected lateinit var objectsView: ListView<T>
@@ -51,7 +51,7 @@ abstract class ObjectViewingManagerPage<T, S : SortingOption>(override val emplo
 
           cell.setOnMouseClicked {
             if (it.clickCount == 2) {
-              //openPage(editorPath, { createEditor(item) })
+              openPage(editorPath, { createEditor(item) })
             }
           }
 
@@ -66,9 +66,6 @@ abstract class ObjectViewingManagerPage<T, S : SortingOption>(override val emplo
           graphic = cell
         }
       }
-
-      cell.style =
-        "-fx-padding: 2px; -fx-background-color: transparent, -fx-background; -fx-background-insets: 0px, 2px;"
 
       cell
     }

@@ -2,7 +2,7 @@ package maxwainer.examgui.page.model.implementation.center
 
 import javafx.scene.image.ImageView
 import maxwainer.examgui.entities.Center
-import maxwainer.examgui.page.auth.toImageView
+import maxwainer.examgui.page.auth.asImageView
 import maxwainer.examgui.page.model.MethodVisitingCellValueFactory
 import java.io.ByteArrayInputStream
 import javax.imageio.ImageIO
@@ -31,7 +31,7 @@ object PictureCellValueFactory : MethodVisitingCellValueFactory<Center, ImageVie
   } else {
     val bufferedImage = ImageIO.read(stream)
 
-    bufferedImage.toImageView()
+    bufferedImage.asImageView
   }
 })
 
@@ -46,6 +46,6 @@ val ByteArray?.toImageView: ImageView get() {
   } else {
     val bufferedImage = ImageIO.read(stream)
 
-    bufferedImage.toImageView()
+    bufferedImage.asImageView
   }
 }

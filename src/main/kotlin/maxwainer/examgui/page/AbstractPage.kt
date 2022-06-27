@@ -1,9 +1,11 @@
 package maxwainer.examgui.page
 
+import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
 import javafx.scene.Parent
 import javafx.scene.Scene
+import javafx.scene.control.Button
 import javafx.stage.Stage
 import maxwainer.examgui.BASE_STYLE
 import maxwainer.examgui.ExamApplication
@@ -30,6 +32,7 @@ abstract class AbstractPage : Initializable {
     parentStage.scene = Scene(parent).apply { stylesheets.add(BASE_STYLE) }
   }
 
-  override fun initialize(location: URL?, resources: ResourceBundle?) {}
+  override fun initialize(location: URL?, resources: ResourceBundle?) {
+  }
 
 }

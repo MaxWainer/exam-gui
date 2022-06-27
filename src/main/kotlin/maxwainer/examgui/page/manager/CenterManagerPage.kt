@@ -9,7 +9,6 @@ import maxwainer.examgui.page.manager.add.CenterAddPage
 import maxwainer.examgui.page.manager.add.CenterEditPage
 import maxwainer.examgui.page.manager.display.ObjectViewingManagerPage
 import maxwainer.examgui.page.manager.display.SortingOption
-import maxwainer.examgui.page.model.implementation.center.toImageView
 
 class CenterManagerPage(override val employer: Employer) :
   ObjectViewingManagerPage<Center, CenterManagerPage.CenterSortOption>(employer) {
@@ -37,7 +36,7 @@ class CenterManagerPage(override val employer: Employer) :
 
 
   override fun sort(
-    option: CenterSortOption, sortValue: String, sortable: List<Center>
+    option: CenterSortOption, sortValue: String, sortable: List<Center>,
   ) = when (option) {
     // filter by city
     CenterSortOption.CITY -> sortable.filter { it.city == sortValue }
@@ -47,7 +46,8 @@ class CenterManagerPage(override val employer: Employer) :
 
   override fun showAvailable(
     option: CenterSortOption,
-    sortable: List<Center>) = when (option) {
+    sortable: List<Center>,
+  ) = when (option) {
     // show available cities
     CenterSortOption.CITY -> sortable.map { it.city!! }.distinct()
     // show available statuses

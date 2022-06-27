@@ -129,7 +129,7 @@ class AuthorizationPageView : AbstractPage() {
 
     val image = currentCaptcha.image
 
-    captchaImage.image = image.toImageView().image
+    captchaImage.image = image.asImageView.image
   }
 
   private fun clearFields() {
@@ -140,7 +140,7 @@ class AuthorizationPageView : AbstractPage() {
 
 }
 
-fun BufferedImage.toImageView(): ImageView {
+val BufferedImage.asImageView get(): ImageView {
   val writable = WritableImage(width, height)
 
   val pixelWriter = writable.pixelWriter
