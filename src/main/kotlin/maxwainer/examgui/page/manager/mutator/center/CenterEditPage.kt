@@ -10,6 +10,7 @@ import maxwainer.examgui.entities.Center
 import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.module.entity.CenterService
 import maxwainer.examgui.extension.ImageSelector
+import maxwainer.examgui.extension.asByteArray
 import maxwainer.examgui.page.manager.display.ObjectEditPage
 import maxwainer.examgui.page.model.implementation.center.toImageView
 import java.awt.image.BufferedImage
@@ -49,6 +50,14 @@ class CenterEditPage(center: Center, override val employer: Employer) :
   private val imageSelector = ImageSelector(image, selectImageButton)
 
   override fun pushUpdate() {
+    editable.name = nameField.text
+    editable.status = statusBox.value
+    editable.pavilionCount = pavilionCountField.text.toInt()
+    editable.city = cityField.text
+    editable.price = priceField.text.toDouble()
+    editable.floorCount = floorCountField.text.toInt()
+    editable.image = image?.asByteArray
+
     centerService.update(editable)
   }
 

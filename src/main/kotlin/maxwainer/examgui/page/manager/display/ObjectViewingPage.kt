@@ -5,6 +5,7 @@ import javafx.fxml.FXML
 import javafx.geometry.Insets
 import javafx.scene.Node
 import javafx.scene.control.Button
+import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
 import javafx.scene.control.ListCell
 import javafx.scene.control.ListView
@@ -15,6 +16,7 @@ import maxwainer.examgui.page.AbstractPage
 import maxwainer.examgui.page.EmployerDependPage
 import java.net.URL
 import java.util.*
+import kotlin.reflect.typeOf
 
 abstract class ObjectViewingPage<T, S : SortingOption>
   (override val employer: Employer) :
@@ -27,6 +29,9 @@ abstract class ObjectViewingPage<T, S : SortingOption>
   protected lateinit var editButton: Button
 
   @FXML
+  protected lateinit var sortTypeBox: ComboBox<String>
+
+  @FXML
   private fun onCreateClick() {
     openPage(creatorPath, { createAdder() })
   }
@@ -34,9 +39,11 @@ abstract class ObjectViewingPage<T, S : SortingOption>
   override fun initialize(location: URL?, resources: ResourceBundle?) {
     objectsView.items = FXCollections.observableList(objects)
     objectsView.selectionModel.selectionMode = SelectionMode.SINGLE
+
     objectsView.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
       editButton.isDisable = newValue == null
     }
+
     objectsView.setCellFactory {
       val cell = object : ListCell<T?>() {
 
@@ -69,6 +76,8 @@ abstract class ObjectViewingPage<T, S : SortingOption>
 
       cell
     }
+
+
   }
 
   protected abstract val creatorPath: String
@@ -76,7 +85,7 @@ abstract class ObjectViewingPage<T, S : SortingOption>
   protected abstract val objects: List<T>
   protected abstract fun nodesFromObject(obj: T): List<Node>
   protected abstract fun createAdder(): Any
-  protected abstract fun createEditor(obt: T): Any
+  protected abstract fun createEditor(obj: T): Any
   protected abstract fun sort(option: S, sortValue: String, sortable: List<T>): List<T>
   protected abstract fun showAvailable(option: S, sortable: List<T>): List<String>
 

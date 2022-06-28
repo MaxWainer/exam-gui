@@ -40,7 +40,7 @@ open class Employer : Identifiable<Int?> {
 
   @Lob
   @Column(name = "photo", nullable = false)
-  open var photo: Blob? = null
+  open var photo: ByteArray? = null
   override fun toString() =
     "Employer(identifier=$identifier, name=$name, secondName=$secondName, patronymic=$patronymic, password=$password, role=$role, phoneNumber=$phoneNumber, sex=$sex, login=$login, photo=$photo)"
 }

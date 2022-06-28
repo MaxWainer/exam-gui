@@ -21,7 +21,7 @@ class CenterPage(override val employer: Employer) :
     get() = centersService.all()
 
   override fun createAdder() = CenterAddPage(employer)
-  override fun createEditor(obt: Center) = CenterEditPage(obt, employer)
+  override fun createEditor(obj: Center) = CenterEditPage(obj, employer)
 
   // show all Center object fields via Label
   override fun nodesFromObject(obj: Center) = listOf(

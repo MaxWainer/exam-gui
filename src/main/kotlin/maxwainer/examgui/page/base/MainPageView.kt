@@ -77,7 +77,7 @@ class MainPageView(override val employer: Employer) : AbstractPage(), EmployerDe
     }
 
     pavilionsManager.setOnAction {
-      openPage("pavilions-page", { PavilionsPage() })
+      openPage("pavilions-page", { PavilionsPage(employer) })
     }
   }
 }

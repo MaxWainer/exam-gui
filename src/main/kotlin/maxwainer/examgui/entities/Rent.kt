@@ -3,6 +3,7 @@ package maxwainer.examgui.entities
 import jakarta.persistence.*
 import maxwainer.examgui.common.Identifiable
 import java.sql.Date
+import java.time.LocalDate
 
 @Table(name = "rent")
 @Entity
@@ -32,9 +33,9 @@ open class Rent : Identifiable<Int?> {
   open var status: String? = null
 
   @Column(name = "rent_start", nullable = false)
-  open var rentStart: Date? = null
+  open var rentStart: LocalDate? = null
 
   @Column(name = "rent_end", nullable = false)
-  open var rentEnd: Date? = null
+  open var rentEnd: LocalDate? = null
 
 }
