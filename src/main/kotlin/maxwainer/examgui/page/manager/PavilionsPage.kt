@@ -14,11 +14,14 @@ class PavilionsPage(override val employer: Employer) :
   ObjectViewingPage<Pavilion, PavilionsPage.PavilionSortOption>(employer) {
 
   private val pavilionService by define<PavilionService>()
+  override val sortTypes: Array<PavilionSortOption>
+    get() = PavilionSortOption.values()
 
   override val creatorPath = "new-pavilion"
   override val editorPath = "edit-pavilion"
   override val objects: List<Pavilion>
     get() = pavilionService.all()
+
 
   override fun createAdder() = PavilionAddPage(employer)
   override fun createEditor(obj: Pavilion) = PavilionEditPage(obj, employer)

@@ -21,21 +21,19 @@
          <ImageView fitHeight="233.0" fitWidth="207.0" layoutX="7.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
             <Image backgroundLoading="true" url="@images/logo.png" />
          </ImageView>
-         <Button layoutX="51.0" layoutY="841.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="118.0" text="Back to main menu"  onMouseClicked="#onBackButtonClick"/>
+         <Button layoutX="51.0" layoutY="841.0" mnemonicParsing="false" onMouseClicked="#onBackButtonClick" prefHeight="45.0" prefWidth="118.0" text="Back to main menu" />
       </AnchorPane>
    </left>
    <right>
       <AnchorPane prefHeight="900.0" prefWidth="1145.0" BorderPane.alignment="CENTER">
-         <TextField fx:id="nameField" layoutX="498.0" layoutY="243.0" promptText="Enter center name" />
-         <TextField fx:id="cityField" layoutX="498.0" layoutY="280.0" promptText="Enter city name" />
-         <TextField fx:id="pavilionCountField" layoutX="498.0" layoutY="317.0" promptText="Enter pavilion count" />
+         <TextField fx:id="nameField" layoutX="494.0" layoutY="339.0" promptText="Pavilion number" />
+         <TextField fx:id="cityField" layoutX="494.0" layoutY="376.0" promptText="Floor" />
 
-         <TextField fx:id="valueFactorField" layoutX="498.0" layoutY="391.0" prefHeight="0.0" prefWidth="149.0" promptText="Enter value factor" />
-         <TextField fx:id="priceField" layoutX="498.0" layoutY="428.0" prefHeight="0.0" prefWidth="149.0" promptText="Enter price" />
-         <ComboBox fx:id="statusBox" layoutX="498.0" layoutY="473.0" prefWidth="150.0" promptText="Select status" />
-         <Button fx:id="saveButton" layoutX="516.0" layoutY="633.0" mnemonicParsing="false" text="Create new center" />
-         <Button fx:id="imageButton" layoutX="530.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#onSelectPictureClick" text="Select image" />
-         <TextField fx:id="floorCountField" layoutX="498.0" layoutY="357.0" prefHeight="0.0" prefWidth="149.0" promptText="Enter floor count" />
+         <TextField fx:id="valueFactorField" layoutX="494.0" layoutY="487.0" prefHeight="0.0" prefWidth="149.0" promptText="Price per square" />
+         <TextField fx:id="priceField" layoutX="494.0" layoutY="524.0" prefHeight="0.0" prefWidth="149.0" promptText="Value factor" />
+         <Button fx:id="saveButton" layoutX="516.0" layoutY="633.0" mnemonicParsing="false" text="Create new pavilion" />
+         <TextField fx:id="floorCountField" layoutX="494.0" layoutY="453.0" prefHeight="0.0" prefWidth="149.0" promptText="Squares" />
+         <ComboBox layoutX="494.0" layoutY="414.0" prefWidth="150.0" promptText="Select status" />
       </AnchorPane>
    </right>
 </BorderPane>

@@ -1,11 +1,9 @@
 package maxwainer.examgui.page
 
-import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.fxml.Initializable
 import javafx.scene.Parent
 import javafx.scene.Scene
-import javafx.scene.control.Button
 import javafx.stage.Stage
 import maxwainer.examgui.BASE_STYLE
 import maxwainer.examgui.ExamApplication
@@ -15,7 +13,7 @@ import java.util.*
 
 abstract class AbstractPage : Initializable {
 
-  private val parentStage by define<Stage>()
+  protected val parentStage by define<Stage>()
 
   protected fun <T> openPage(page: String, factory: () -> T, preprocessor: (T) -> Unit = {}) {
     val loader = FXMLLoader(

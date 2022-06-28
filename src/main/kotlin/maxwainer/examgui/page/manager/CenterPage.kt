@@ -14,6 +14,7 @@ class CenterPage(override val employer: Employer) :
   ObjectViewingPage<Center, CenterPage.CenterSortOption>(employer) {
 
   private val centersService by define<CenterService>()
+  override val sortTypes = CenterSortOption.values()
 
   override val creatorPath = "new-center"
   override val editorPath = "edit-center"

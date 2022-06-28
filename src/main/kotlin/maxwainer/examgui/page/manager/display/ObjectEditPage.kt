@@ -11,7 +11,7 @@ import java.util.*
 
 abstract class ObjectEditPage<T>
   (override val employer: Employer, protected val editable: T) :
-  AbstractPage(), EmployerDependPage {
+  AbstractBackingPage(employer) {
 
   @FXML
   private lateinit var saveButton: Button

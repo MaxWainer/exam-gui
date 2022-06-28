@@ -10,12 +10,14 @@ import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.entities.Pavilion
 import maxwainer.examgui.extension.asNumeric
 import maxwainer.examgui.module.entity.CenterService
+import maxwainer.examgui.module.entity.PavilionService
 import maxwainer.examgui.page.manager.display.ObjectEditPage
 
 class PavilionEditPage(pavilion: Pavilion, employer: Employer) :
   ObjectEditPage<Pavilion>(employer, pavilion) {
 
   private val centerService by define<CenterService>()
+  private val pavilionService by define<PavilionService>()
 
   @FXML
   private lateinit var centerBox: ComboBox<Center>
@@ -39,7 +41,15 @@ class PavilionEditPage(pavilion: Pavilion, employer: Employer) :
   private lateinit var valueFactorField: TextField
 
   override fun pushUpdate() {
-    TODO("Not yet implemented")
+    editable.pavilionNumber = pavilionNumberField.text
+    editable.center = centerBox.selectionModel.selectedItem
+    editable.floor = pavilionFloor.text.toInt()
+    editable.status = statusBox.selectionModel.selectedItem
+    editable.squares = squaresField.text.toInt()
+    editable.pricePerSquare = pricePerSquareField.text.toDouble()
+    editable.valueFactor = valueFactorField.text.toFloat()
+
+    pavilionService.update(editable)
   }
 
   override val isAllowedToPush: Boolean

@@ -6,7 +6,7 @@ import maxwainer.examgui.extension.javafx.errorAlert
 import maxwainer.examgui.page.AbstractPage
 import maxwainer.examgui.page.EmployerDependPage
 
-abstract class ObjectCreatePage<T>(override val employer: Employer) : AbstractPage(), EmployerDependPage {
+abstract class ObjectCreatePage<T>(employer: Employer) : AbstractBackingPage(employer) {
 
   @FXML
   private fun onCreateClick() {
@@ -18,5 +18,7 @@ abstract class ObjectCreatePage<T>(override val employer: Employer) : AbstractPa
   protected abstract val isAllowedToCreate: Boolean
   protected abstract fun createObject(): T
   protected abstract fun saveObject(obj: T)
+
+
 
 }

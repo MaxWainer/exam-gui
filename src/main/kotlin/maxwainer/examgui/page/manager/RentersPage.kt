@@ -14,6 +14,7 @@ class RentersPage(override val employer: Employer) :
   ObjectViewingPage<Renter, RentersPage.RenterSortOption>(employer) {
 
   private val employerService by define<RenterService>()
+  override val sortTypes = RenterSortOption.values()
 
   override val creatorPath = "new-renter"
   override val editorPath = "edit-renter"

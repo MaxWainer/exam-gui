@@ -45,7 +45,7 @@ class CenterEditPage(center: Center, override val employer: Employer) :
   private lateinit var floorCountField: TextField
 
   @FXML
-  private lateinit var imageView: ImageView
+  private lateinit var centerImageView: ImageView
 
   private val imageSelector = ImageSelector(image, selectImageButton)
 
@@ -83,7 +83,7 @@ class CenterEditPage(center: Center, override val employer: Employer) :
     floorCountField.text = editable.floorCount.toString()
     priceField.text = editable.price.toString()
 
-    imageView.image = editable.image.toImageView.image
+    centerImageView.image = editable.image.toImageView.image
   }
 
 }

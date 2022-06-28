@@ -19,6 +19,8 @@ class RentListPage(override val employer: Employer) :
   override val editorPath = "edit-rent"
   override val objects: List<Rent>
     get() = rentService.all()
+  override val sortTypes: Array<RentSortOption>
+    get() = RentSortOption.values()
 
   override fun createAdder() = RentAddPage(employer)
   override fun createEditor(obj: Rent) = RentEditPage(obj, employer)

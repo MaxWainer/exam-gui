@@ -4,23 +4,17 @@ import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.geometry.Insets
 import javafx.scene.Node
-import javafx.scene.control.Button
-import javafx.scene.control.ComboBox
-import javafx.scene.control.Label
-import javafx.scene.control.ListCell
-import javafx.scene.control.ListView
-import javafx.scene.control.SelectionMode
+import javafx.scene.control.*
 import javafx.scene.layout.GridPane
 import maxwainer.examgui.entities.Employer
+import maxwainer.examgui.extension.javafx.errorAlert
 import maxwainer.examgui.page.AbstractPage
 import maxwainer.examgui.page.EmployerDependPage
 import java.net.URL
 import java.util.*
-import kotlin.reflect.typeOf
 
 abstract class ObjectViewingPage<T, S : SortingOption>
-  (override val employer: Employer) :
-  AbstractPage(), EmployerDependPage {
+  (employer: Employer) : AbstractBackingPage(employer) {
 
   @FXML
   protected lateinit var objectsView: ListView<T>
@@ -29,11 +23,26 @@ abstract class ObjectViewingPage<T, S : SortingOption>
   protected lateinit var editButton: Button
 
   @FXML
-  protected lateinit var sortTypeBox: ComboBox<String>
+  protected lateinit var sortTypeBox: ComboBox<S>
+
+  @FXML
+  protected lateinit var sortingBox: ComboBox<String>
 
   @FXML
   private fun onCreateClick() {
     openPage(creatorPath, { createAdder() })
+  }
+
+  @FXML
+  private fun onEditClick() {
+    val selected = objectsView.selectionModel.selectedItem
+
+    if (selected == null) {
+      errorAlert("No object selected", "Please select an object to edit")
+      return
+    }
+
+    openPage(editorPath, { createEditor(selected) })
   }
 
   override fun initialize(location: URL?, resources: ResourceBundle?) {
@@ -43,6 +52,43 @@ abstract class ObjectViewingPage<T, S : SortingOption>
     objectsView.selectionModel.selectedItemProperty().addListener { _, _, newValue ->
       editButton.isDisable = newValue == null
     }
+
+    sortTypeBox.items.addAll(sortTypes)
+    sortTypeBox.setCellFactory {
+      object : ListCell<S>() {
+        override fun updateItem(item: S?, empty: Boolean) {
+          super.updateItem(item, empty)
+          if (item != null) {
+            text = item.displayName
+          }
+        }
+      }
+    }
+
+    sortTypeBox
+      .selectionModel
+      .selectedItemProperty()
+      .addListener { _, _, newValue ->
+        if (newValue != null) {
+          sortingBox.items.clear()
+          sortingBox.items.addAll(
+            showAvailable(newValue, objects)
+          )
+        }
+      }
+
+    sortingBox
+      .selectionModel
+      .selectedItemProperty()
+      .addListener { _, _, newValue ->
+        if (newValue != null) {
+          objectsView.items.clear()
+          objectsView.items.addAll(
+            sort(sortTypeBox.selectionModel.selectedItem, newValue, objects)
+          )
+        }
+      }
+
 
     objectsView.setCellFactory {
       val cell = object : ListCell<T?>() {
@@ -80,6 +126,7 @@ abstract class ObjectViewingPage<T, S : SortingOption>
 
   }
 
+  protected abstract val sortTypes: Array<S>
   protected abstract val creatorPath: String
   protected abstract val editorPath: String
   protected abstract val objects: List<T>

@@ -6,20 +6,23 @@ import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.module.entity.EmployerService
 import maxwainer.examgui.page.manager.display.ObjectViewingPage
 import maxwainer.examgui.page.manager.display.SortingOption
+import maxwainer.examgui.page.manager.mutator.employer.EmployerAddPage
+import maxwainer.examgui.page.manager.mutator.employer.EmployerEditPage
 import maxwainer.examgui.page.model.implementation.center.toImageView
 
 class EmployerPage(override val employer: Employer) :
   ObjectViewingPage<Employer, EmployerPage.EmployerSortOption>(employer) {
 
   private val employerService by define<EmployerService>()
+  override val sortTypes = EmployerSortOption.values()
 
   override val creatorPath = "new-employer"
   override val editorPath = "edit-employer"
   override val objects: List<Employer>
     get() = employerService.all()
 
-  override fun createAdder() = TODO()
-  override fun createEditor(obj: Employer) = TODO()
+  override fun createAdder() = EmployerAddPage(employer)
+  override fun createEditor(obj: Employer) = EmployerEditPage(obj, employer)
 
   // show all Center object fields via Label
   override fun nodesFromObject(obj: Employer) = listOf(

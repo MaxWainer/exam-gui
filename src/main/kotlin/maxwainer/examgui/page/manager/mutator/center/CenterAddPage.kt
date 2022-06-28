@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage
 import java.net.URL
 import java.util.*
 
-class CenterAddPage(override val employer: Employer) : ObjectCreatePage<Center>(employer) {
+class CenterAddPage(employer: Employer) : ObjectCreatePage<Center>(employer) {
 
   private var image: BufferedImage? = null
   private val imageSelector = ImageSelector(image, imageButton)

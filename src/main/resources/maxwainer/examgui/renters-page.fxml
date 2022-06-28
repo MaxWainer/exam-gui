@@ -13,7 +13,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
   <left>
     <AnchorPane prefHeight="900.0" prefWidth="205.0" BorderPane.alignment="CENTER">
-      <Button layoutX="54.0" layoutY="612.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="118.0" text="Back to main menu" onMouseClicked="#onBackButtonClick"/>
+      <Button layoutX="54.0" layoutY="612.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="118.0" text="Back to main menu" onMouseClicked="#onBackButtonClick" />
       <Text layoutX="21.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="King IT" wrappingWidth="153.13671875">
         <font>
           <Font size="47.0" />
@@ -34,7 +34,7 @@
       </Text>
       <ComboBox fx:id="sortingBox" layoutX="202.0" layoutY="611.0" prefWidth="150.0" promptText="Order by..." />
       <Button layoutX="842.0" layoutY="582.0" mnemonicParsing="false" onMouseClicked="#onEditClick" prefHeight="45.0" prefWidth="115.0" text="Edit" />
-      <Button layoutX="550.0" layoutY="586.0" mnemonicParsing="false" onMouseClicked="#onCreateClick" prefHeight="45.0" prefWidth="115.0" text="Add new center" />
+      <Button layoutX="550.0" layoutY="586.0" mnemonicParsing="false" onMouseClicked="#onCreateClick" prefHeight="45.0" prefWidth="115.0" text="Add new renter" />
       <ListView fx:id="objectsView" layoutX="35.0" layoutY="35.0" prefHeight="530.0" prefWidth="1131.0" />
     </AnchorPane>
   </right>
