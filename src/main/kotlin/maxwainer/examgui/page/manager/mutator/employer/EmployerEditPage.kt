@@ -4,15 +4,18 @@ import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
+import javafx.scene.image.ImageView
 import maxwainer.examgui.common.inject.delegate.define
 import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.extension.ImageSelector
 import maxwainer.examgui.extension.asByteArray
 import maxwainer.examgui.module.entity.EmployerService
 import maxwainer.examgui.page.manager.display.ObjectEditPage
+import maxwainer.examgui.page.model.implementation.center.toImageView
 import java.awt.image.BufferedImage
 
-class EmployerEditPage(obj: Employer, employer: Employer) : ObjectEditPage<Employer>(obj, employer) {
+class EmployerEditPage(obj: Employer, employer: Employer) :
+  ObjectEditPage<Employer>(obj, employer) {
 
   private var image: BufferedImage? = null
   private val imageSelector = ImageSelector(image, imageButton)
@@ -47,6 +50,9 @@ class EmployerEditPage(obj: Employer, employer: Employer) : ObjectEditPage<Emplo
   private lateinit var imageButton: Button
 
   @FXML
+  private lateinit var employerImageView: ImageView
+
+  @FXML
   private fun onSelectPictureClick() {
     imageSelector.onSelectPictureClick()
   }
@@ -66,14 +72,14 @@ class EmployerEditPage(obj: Employer, employer: Employer) : ObjectEditPage<Emplo
 
   override val isAllowedToPush: Boolean
     get() = nameField.text.isNotEmpty() &&
-            secondNameField.text.isNotEmpty() &&
-            patronymicField.text.isNotEmpty() &&
-            passwordField.text.isNotEmpty() &&
-            roleField.text.isNotEmpty() &&
-            phoneNumberField.text.isNotEmpty() &&
-            loginField.text.isNotEmpty() &&
-            genderSelector.value != null &&
-            imageSelector.image != null
+        secondNameField.text.isNotEmpty() &&
+        patronymicField.text.isNotEmpty() &&
+        passwordField.text.isNotEmpty() &&
+        roleField.text.isNotEmpty() &&
+        phoneNumberField.text.isNotEmpty() &&
+        loginField.text.isNotEmpty() &&
+        genderSelector.value != null &&
+        imageSelector.image != null
 
   override fun initFields() {
     nameField.text = editable.name
@@ -83,6 +89,11 @@ class EmployerEditPage(obj: Employer, employer: Employer) : ObjectEditPage<Emplo
     roleField.text = editable.role
     phoneNumberField.text = editable.phoneNumber
     loginField.text = editable.login
+
+    employerImageView.image = editable
+      .photo
+      .toImageView
+      .image
   }
 
 }

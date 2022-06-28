@@ -31,7 +31,7 @@
 
          <TextField fx:id="pricePerSquareField" layoutX="494.0" layoutY="487.0" prefHeight="0.0" prefWidth="149.0" promptText="Price per square" />
          <TextField fx:id="valueFactorField" layoutX="494.0" layoutY="524.0" prefHeight="0.0" prefWidth="149.0" promptText="Value factor" />
-         <Button fx:id="saveButton" layoutX="516.0" layoutY="633.0" mnemonicParsing="false" text="Create new pavilion" />
+         <Button fx:id="saveButton" layoutX="516.0" layoutY="633.0" mnemonicParsing="false" text="Save changes pavilion" />
          <TextField fx:id="squaresField" layoutX="494.0" layoutY="453.0" prefHeight="0.0" prefWidth="149.0" promptText="Squares" />
          <ComboBox fx:id="statusBox" layoutX="494.0" layoutY="414.0" prefWidth="150.0" promptText="Select status" />
          <ComboBox fx:id="centerBox" layoutX="497.0" layoutY="565.0" prefWidth="150.0" promptText="Select related center" />
