@@ -4,11 +4,11 @@ import maxwainer.examgui.common.inject.delegate.define
 import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.entities.Pavilion
 import maxwainer.examgui.module.entity.PavilionService
-import maxwainer.examgui.page.manager.display.ObjectViewingManagerPage
+import maxwainer.examgui.page.manager.display.ObjectViewingPage
 import maxwainer.examgui.page.manager.display.SortingOption
 
-class PavilionsManagerPage(override val employer: Employer) :
-  ObjectViewingManagerPage<Pavilion, PavilionsManagerPage.PavilionSortOption>(employer) {
+class PavilionsPage(override val employer: Employer) :
+  ObjectViewingPage<Pavilion, PavilionsPage.PavilionSortOption>(employer) {
 
   private val employerService by define<PavilionService>()
 

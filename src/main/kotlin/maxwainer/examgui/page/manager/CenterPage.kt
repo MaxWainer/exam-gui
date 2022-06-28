@@ -5,13 +5,13 @@ import maxwainer.examgui.common.inject.delegate.define
 import maxwainer.examgui.entities.Center
 import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.module.entity.CenterService
-import maxwainer.examgui.page.manager.add.CenterAddPage
-import maxwainer.examgui.page.manager.add.CenterEditPage
-import maxwainer.examgui.page.manager.display.ObjectViewingManagerPage
+import maxwainer.examgui.page.manager.mutator.center.CenterAddPage
+import maxwainer.examgui.page.manager.mutator.center.CenterEditPage
+import maxwainer.examgui.page.manager.display.ObjectViewingPage
 import maxwainer.examgui.page.manager.display.SortingOption
 
-class CenterManagerPage(override val employer: Employer) :
-  ObjectViewingManagerPage<Center, CenterManagerPage.CenterSortOption>(employer) {
+class CenterPage(override val employer: Employer) :
+  ObjectViewingPage<Center, CenterPage.CenterSortOption>(employer) {
 
   private val centersService by define<CenterService>()
 

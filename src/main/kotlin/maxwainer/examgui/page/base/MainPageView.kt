@@ -10,10 +10,10 @@ import maxwainer.examgui.extension.javafx.fixTo
 import maxwainer.examgui.extension.javafx.infoAlert
 import maxwainer.examgui.page.AbstractPage
 import maxwainer.examgui.page.EmployerDependPage
-import maxwainer.examgui.page.manager.CenterManagerPage
-import maxwainer.examgui.page.manager.EmployerManagerPage
-import maxwainer.examgui.page.manager.PavilionsManagerPage
-import maxwainer.examgui.page.manager.RentersManagerPage
+import maxwainer.examgui.page.manager.CenterPage
+import maxwainer.examgui.page.manager.EmployerPage
+import maxwainer.examgui.page.manager.PavilionsPage
+import maxwainer.examgui.page.manager.RentersPage
 import java.net.URL
 import java.util.*
 import kotlin.system.exitProcess
@@ -63,21 +63,21 @@ class MainPageView(override val employer: Employer) : AbstractPage(), EmployerDe
     }
 
     centersManager.setOnAction {
-      openPage("centers-page", { CenterManagerPage(employer) }) {
+      openPage("centers-page", { CenterPage(employer) }) {
         primaryStage.fixTo(1400.0, 700.0)
       }
     }
 
     employersManager.setOnAction {
-      openPage("employers-page", { EmployerManagerPage(employer) })
+      openPage("employers-page", { EmployerPage(employer) })
     }
 
     rentersManager.setOnAction {
-      openPage("renters-page", { RentersManagerPage(employer) })
+      openPage("renters-page", { RentersPage(employer) })
     }
 
     pavilionsManager.setOnAction {
-      openPage("pavilions-page", { PavilionsManagerPage() })
+      openPage("pavilions-page", { PavilionsPage() })
     }
   }
 }

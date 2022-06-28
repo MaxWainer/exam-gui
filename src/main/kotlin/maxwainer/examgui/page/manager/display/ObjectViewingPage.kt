@@ -16,7 +16,7 @@ import maxwainer.examgui.page.EmployerDependPage
 import java.net.URL
 import java.util.*
 
-abstract class ObjectViewingManagerPage<T, S : SortingOption>
+abstract class ObjectViewingPage<T, S : SortingOption>
   (override val employer: Employer) :
   AbstractPage(), EmployerDependPage {
 

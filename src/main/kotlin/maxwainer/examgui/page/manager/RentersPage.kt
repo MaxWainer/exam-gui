@@ -4,11 +4,11 @@ import maxwainer.examgui.common.inject.delegate.define
 import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.entities.Renter
 import maxwainer.examgui.module.entity.RenterService
-import maxwainer.examgui.page.manager.display.ObjectViewingManagerPage
+import maxwainer.examgui.page.manager.display.ObjectViewingPage
 import maxwainer.examgui.page.manager.display.SortingOption
 
-class RentersManagerPage(override val employer: Employer) :
-  ObjectViewingManagerPage<Renter, RentersManagerPage.RenterSortOption>(employer) {
+class RentersPage(override val employer: Employer) :
+  ObjectViewingPage<Renter, RentersPage.RenterSortOption>(employer) {
 
   private val employerService by define<RenterService>()
 

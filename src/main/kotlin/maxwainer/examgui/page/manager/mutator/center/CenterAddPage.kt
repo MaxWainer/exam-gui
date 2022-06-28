@@ -1,4 +1,4 @@
-package maxwainer.examgui.page.manager.add
+package maxwainer.examgui.page.manager.mutator.center
 
 import javafx.fxml.FXML
 import javafx.scene.control.Button
@@ -10,7 +10,6 @@ import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.extension.ImageSelector
 import maxwainer.examgui.extension.asByteArray
 import maxwainer.examgui.extension.asNumeric
-import maxwainer.examgui.extension.javafx.errorAlert
 import maxwainer.examgui.module.entity.CenterService
 import maxwainer.examgui.page.manager.display.ObjectCreatePage
 import java.awt.image.BufferedImage

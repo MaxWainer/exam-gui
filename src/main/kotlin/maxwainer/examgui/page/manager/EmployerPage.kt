@@ -3,11 +3,11 @@ package maxwainer.examgui.page.manager
 import maxwainer.examgui.common.inject.delegate.define
 import maxwainer.examgui.entities.Employer
 import maxwainer.examgui.module.entity.EmployerService
-import maxwainer.examgui.page.manager.display.ObjectViewingManagerPage
+import maxwainer.examgui.page.manager.display.ObjectViewingPage
 import maxwainer.examgui.page.manager.display.SortingOption
 
-class EmployerManagerPage(override val employer: Employer) :
-  ObjectViewingManagerPage<Employer, EmployerManagerPage.EmployerSortOption>(employer) {
+class EmployerPage(override val employer: Employer) :
+  ObjectViewingPage<Employer, EmployerPage.EmployerSortOption>(employer) {
 
   private val employerService by define<EmployerService>()
 

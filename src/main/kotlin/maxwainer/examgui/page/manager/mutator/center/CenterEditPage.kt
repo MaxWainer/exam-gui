@@ -1,4 +1,4 @@
-package maxwainer.examgui.page.manager.add
+package maxwainer.examgui.page.manager.mutator.center
 
 import javafx.fxml.FXML
 import javafx.scene.control.Button
@@ -68,8 +68,8 @@ class CenterEditPage(center: Center, override val employer: Employer) :
 
     cityField.text = editable.city
     nameField.text = editable.name
-    statusBox.selectionModel.select(editable.status)
     statusBox.items.addAll("План", "Строительство", "Реализация")
+    statusBox.selectionModel.select(editable.status)
     pavilionCountField.text = editable.pavilionCount.toString()
     floorCountField.text = editable.floorCount.toString()
     priceField.text = editable.price.toString()

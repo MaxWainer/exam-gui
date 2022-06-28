@@ -16,7 +16,6 @@ abstract class MethodVisitingCellValueFactory<T : Any, R : Any>
   (private val primitiveMapper: PrimitiveMapper<T, R>) :
   Callback<TableColumn.CellDataFeatures<T, R>, ObservableValue<R>> {
 
-  override fun call(param: TableColumn.CellDataFeatures<T, R>?): ObservableValue<R> = ReadOnlyObjectWrapper(
-    primitiveMapper(param!!.value)
-  )
+  override fun call(param: TableColumn.CellDataFeatures<T, R>?):
+      ObservableValue<R> = ReadOnlyObjectWrapper(primitiveMapper(param!!.value))
 }
